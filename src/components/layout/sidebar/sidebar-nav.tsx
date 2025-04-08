@@ -53,6 +53,12 @@ const nav = [
 
 export function SidebarNav({ role }: { role: Roles }) {
   const path = usePathname();
+  const isActive = (path: string, href: string) => {
+    if (href === "/dashboard") {
+      return path === href;
+    }
+    return path === href || path.startsWith(href + "/");
+  };
   return (
     <nav className="space-y-1">
       {nav.map(({ route, Icon }) => {
@@ -63,8 +69,8 @@ export function SidebarNav({ role }: { role: Roles }) {
               href={route.href}
               className={cn(
                 "flex items-center gap-2 px-3 py-2 hover:bg-neutral-100 text-sm rounded-md capitalize transition-colors",
-                path === route.href &&
-                  "bg-primary text-primary-foreground hover:bg-primary/90"
+                isActive(path, route.href) &&
+                  "bg-primary text-primary-foreground hover:bg-primary/90",
               )}
             >
               <Icon className="size-4" aria-hidden />
