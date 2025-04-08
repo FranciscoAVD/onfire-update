@@ -19,12 +19,14 @@ type DashboardRoutes = {
     settings: DashboardRoute;
 }
 
-export const routes:{
+type AllRoutes = {
     home: Route;
     login: Route;
     register: Route;
     dashboard: DashboardRoutes;
-} = {
+}
+
+export const routes:AllRoutes = {
   home: {
     label: "home",
     href: "/",
