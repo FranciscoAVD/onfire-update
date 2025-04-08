@@ -7,7 +7,10 @@ export const registerUserSchema = z.object({
   email: z.string().email("Invalid email address."),
   phone: z.string().min(1, "Phone number is required."),
   password: z.string().min(8, "Password must contain at least 8 characters.")
-}).refine(d => isValidPhoneNumber(d.phone));
+}).refine(d => isValidPhoneNumber(d.phone), {
+  path: ["phone"],
+  message: "Invalid phone number.",
+});
 
 export const loginUserSchema = z.object({
     email: z.string().email("Invalid email address."),
