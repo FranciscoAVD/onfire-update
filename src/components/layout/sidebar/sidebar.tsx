@@ -53,13 +53,13 @@ const nav = [
 export function Sidebar({ className }: { className?: string }) {
   const path = usePathname();
   return (
-    <aside className={cn(`p-4 ${className}`)}>
+    <aside className={cn(`py-4 px-2 ${className}`)}>
       <nav className="space-y-1">
         {nav.map(({ route, Icon }) => (
           <Link
             key={route.href}
             href={route.href}
-            className={cn("flex items-center gap-2 px-3 py-2 hover:bg-neutral-100 text-sm rounded-lg capitalize transition-colors",
+            className={cn("flex items-center gap-2 px-3 py-2 hover:bg-neutral-100 text-sm rounded-md capitalize transition-colors",
                 path === route.href && "bg-primary text-primary-foreground hover:bg-primary/90"
             )}
           >
