@@ -18,6 +18,7 @@ interface RegisterResponse extends AuthActionResponse {
     phone?: string[] | undefined;
     password?: string[] | undefined;
   };
+  previous?: Record<string, string>
 }
 
 export async function registerAction(
@@ -25,26 +26,26 @@ export async function registerAction(
   unverified: FormData
 ): Promise<RegisterResponse> {
   const session = await getSession();
-  if (!session) return { success: false };
+  if (session) return { success: false };
 
   const object = formDataToObject(unverified);
 
   const { success, data, error } = registerUserSchema.safeParse(object);
-  if (!success) return { success: false, errors: error.flatten().fieldErrors };
-
+  if (!success) return { success: false, errors: error.flatten().fieldErrors, previous: object };
+ 
   const normalizedEmail = data.email.toLowerCase();
 
   //Ensure entity is not already a user.
   const isRegistered = await isUser(normalizedEmail);
   if (isRegistered)
-    return { success: false, errors: { email: ["Email already in use."] } };
-
+    return { success: false, errors: { email: ["Email already in use."] }, previous: object };
+  
   //Register user
   const hash = await hashPassword(data.password);
- 
+
   const userId = await addUser({
-    firstName: data.first,
-    lastName: data.last,
+    firstName: data.first.toLowerCase(),
+    lastName: data.last.toLowerCase(),
     email: normalizedEmail,
     phone: cleanPhoneNumber(data.phone),
     password: hash,
@@ -53,7 +54,7 @@ export async function registerAction(
 
   await createSession({
     id: userId,
-    name: `${data.first} ${data.last}`,
+    name: `${data.first} ${data.last}`.toLowerCase(),
     email: normalizedEmail,
     role: DEFAULT_USER_ROLE,
   });

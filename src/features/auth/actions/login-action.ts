@@ -1,3 +1,5 @@
+"use server";
+
 import { formDataToObject } from "@/lib/utils";
 import { createSession, getSession } from "@/features/auth/lib/session";
 import { AuthActionResponse } from "@/features/auth/lib/types";
@@ -11,6 +13,7 @@ interface LoginResponse extends AuthActionResponse {
     email?: string[] | undefined;
     password?: string[] | undefined;
   };
+  previous?: Record<string,string>;
 }
 
 export async function loginAction(
@@ -23,7 +26,7 @@ export async function loginAction(
   const object = formDataToObject(unverified);
 
   const { success, data, error } = loginUserSchema.safeParse(object);
-  if (!success) return { success: false, errors: error.flatten().fieldErrors };
+  if (!success) return { success: false, errors: error.flatten().fieldErrors, previous: object };
 
   const normalizedEmail = data.email.toLowerCase();
 
