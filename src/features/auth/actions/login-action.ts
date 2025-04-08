@@ -2,13 +2,13 @@
 
 import { formDataToObject } from "@/lib/utils";
 import { createSession, getSession } from "@/features/auth/lib/session";
-import { AuthActionResponse } from "@/features/auth/lib/types";
+import { TResponse } from "@/lib/types";
 import { loginUserSchema } from "@/features/auth/lib/schemas";
 import { getUserByEmail } from "@/features/users/use-cases/get-user";
 import { isSamePassword } from "@/features/auth/lib/hash";
 import { redirect } from "next/navigation";
 
-interface LoginResponse extends AuthActionResponse {
+interface LoginResponse extends TResponse {
   errors?: {
     email?: string[] | undefined;
     password?: string[] | undefined;

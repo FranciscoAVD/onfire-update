@@ -1,6 +1,6 @@
 "use server";
 
-import { AuthActionResponse } from "@/features/auth/lib/types";
+import { TResponse } from "@/lib/types"; 
 import { registerUserSchema } from "@/features/auth/lib/schemas";
 import { createSession, getSession } from "@/features/auth/lib/session";
 import { cleanPhoneNumber, formDataToObject } from "@/lib/utils";
@@ -10,7 +10,7 @@ import { addUser } from "@/features/users/use-cases/add-user";
 import { DEFAULT_USER_ROLE } from "@/features/users/lib/constants";
 import { redirect } from "next/navigation";
 
-interface RegisterResponse extends AuthActionResponse {
+interface RegisterResponse extends TResponse {
   errors?: {
     first?: string[] | undefined;
     last?: string[] | undefined;
