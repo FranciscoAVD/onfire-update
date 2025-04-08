@@ -4,15 +4,13 @@ import { getOneWeekFromNow } from "@/lib/utils";
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { sessionName } from "./constants";
+import { cache } from "react";
+import { UserSessionData } from "@/features/users/lib/types";
+import { userSessionSchema } from "@/features/users/lib/schemas";
+import { UserDTO } from "@/features/users/lib/dto";
 
-type UserData = {
-    id: User["id"],
-    name: string,
-    email: string,
-    role: string,
-}
 type SessionData = {
-    data: UserData,
+    data: UserSessionData,
     expiresAt: Date,
 }
 type Payload = SessionData & JWTPayload;
@@ -40,7 +38,7 @@ export async function decrypt(session: string | undefined): Promise<Payload | nu
     }
 }
 
-export async function createSession(data:UserData):Promise<void>{
+export async function createSession(data:UserSessionData):Promise<void>{
     const expiresAt = getOneWeekFromNow();
     const session = await encrypt({data, expiresAt});
 
@@ -63,3 +61,9 @@ export async function deleteSession(): Promise<void> {
     const cookieStore = await cookies();
     cookieStore.delete(sessionName);
 }
+
+export const getCurrentUser = cache(async ():Promise<UserDTO | null> => {
+    const session = await getSession();
+    const { success, data } = userSessionSchema.safeParse(session?.data);
+    return success ? new UserDTO(data) : null;
+})
