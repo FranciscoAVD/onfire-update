@@ -1,0 +1,1 @@
+export const sessionName = "onfire_session_token" as const;
