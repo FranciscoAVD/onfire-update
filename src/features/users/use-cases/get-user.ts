@@ -5,11 +5,11 @@ import { eq } from "drizzle-orm";
 
 export async function isUser(email: string): Promise<boolean> {
   try {
-    const [res] = await db
+    const res = await db
       .select({ id: usersTable.id })
       .from(usersTable)
       .where(eq(usersTable.email, email));
-    return res.id ? true : false;
+    return res[0] ? true : false;
   } catch (err) {
     throw new Error("Database error while verifying entity exists as a user.");
   }
