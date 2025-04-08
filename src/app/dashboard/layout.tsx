@@ -15,8 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <DashboardLayout>
-      <Header className="col-span-full border"/>
-      <Sidebar className="hidden lg:block col-start-1 border"/>
+      <Header className="col-span-full border-b" />
+      <Sidebar className="hidden lg:block col-start-1 border-r" />
       {children}
     </DashboardLayout>
   );
