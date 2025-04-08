@@ -23,6 +23,9 @@ export class UserDTO {
   getEmail(): string {
     return this.email
   }
+  getRole(): Roles {
+    return this.role;
+  }
   isAdmin(): boolean {
     return this.role === "admin";
   }
