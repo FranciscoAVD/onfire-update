@@ -23,13 +23,13 @@ export async function getAllPackages(): Promise<Package[]> {
   }
 }
 
-export async function getPackage(packageId: Package["id"]): Promise<Package> {
+export async function getPackage(packageId: Package["id"]): Promise<Package | null> {
   try {
     const [res] = await db
       .select()
       .from(packageTable)
       .where(eq(packageTable.id, packageId));
-    return res;
+    return res ?? null;
   } catch (err) {
     throw new Error("Database error while querying package.");
   }
