@@ -43,7 +43,7 @@ export function PackageCardPopover({
       </PopoverTrigger>
       <PopoverContent className="flex flex-col p-1 w-[150px]" align="end">
         <Button variant="ghost" className="justify-start" asChild>
-          <Link href={routes.dashboard.packages.href}>
+          <Link href={`/dashboard/packages/edit/${id}`}>
             <SquarePen aria-hidden />
             Edit
           </Link>
