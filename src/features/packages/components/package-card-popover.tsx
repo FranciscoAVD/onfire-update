@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Package } from "@/database/types";
 import { useActionState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { updatePackageStatusAction } from "@/features/packages/actions/update-package-status-action";
+import { updatePackageStatusAction } from "@/features/packages/actions/update-package-data-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { toast } from "sonner";
 
@@ -50,6 +50,12 @@ export function PackageCardPopover({
         </Button>
         <form action={formAction}>
           <Input name="id" value={id} className="h-0 p-0 invisible" readOnly />
+          <Input
+            name="active"
+            value={`${isActive}`}
+            className="h-0 p-0 invisible"
+            readOnly
+          />
           <Button
             type="submit"
             variant="ghost"
