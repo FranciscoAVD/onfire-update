@@ -73,7 +73,7 @@ export function RegisterForm({ className }: { className?: string }) {
       <p className="col-span-full text-sm text-neutral-500">
         Already have an account? <Link href="/login">Login</Link>
       </p>
-      <Button type="submit" className="col-span-full">
+      <Button type="submit" className="col-span-full" disabled={isLoading}>
         {isLoading ? <LoadingSpinner /> : "Register"}
       </Button>
     </form>

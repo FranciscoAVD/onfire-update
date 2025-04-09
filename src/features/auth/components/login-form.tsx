@@ -37,7 +37,9 @@ export function LoginForm({ className }: { className?: string }) {
       <p className="col-span-full text-sm text-neutral-500">
         Don&apos;t have an account yet? <Link href={"/register"}>Register</Link>
       </p>
-      <Button type="submit">{isLoading ? <LoadingSpinner /> : "Login"}</Button>
+      <Button type="submit" disabled={isLoading}>
+        {isLoading ? <LoadingSpinner /> : "Login"}
+      </Button>
     </form>
   );
 }

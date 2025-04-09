@@ -53,11 +53,10 @@ export function PackageCardPopover({
           <Button
             type="submit"
             variant="ghost"
-            className="w-full justify-start"
+            className={`w-full justify-start ${isLoading && "animate-pulse"}`}
+            disabled={isLoading}
           >
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : isActive ? (
+            {isActive ? (
               <>
                 <EyeOff aria-hidden /> Disable
               </>
