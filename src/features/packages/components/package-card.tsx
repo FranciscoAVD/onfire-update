@@ -31,7 +31,7 @@ export default function PackageCard({
           {p.packageName}
         </CardTitle>
         <CardDescription>
-          {p.numberOfPrivates} {p.numberOfPrivates > 1 ? "Classes" : "Class"}
+          {p.numberOfPrivates} {p.numberOfPrivates > 1 ? "Clases" : "Clase"}
         </CardDescription>
       </CardHeader>
       <CardContent className="">
