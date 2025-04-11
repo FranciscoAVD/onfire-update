@@ -107,6 +107,7 @@ export const privatesScheduleTable = pgTable(
 export const groupTable = pgTable("groups", {
   id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
   name: varchar("name", { length: 100 }).notNull(),
+  type: varchar("type", {length: 8}).notNull(),
   rhythm: varchar("rhythm", { length: 50 }).notNull(),
   style: varchar("style", { length: 50 }).notNull(),
   description: varchar("description", { length: 255 }).notNull(),
