@@ -17,8 +17,9 @@ export function LoginForm({ className }: { className?: string }) {
   return (
     <form action={formAction} className={cn(`grid gap-4 ${className}`)}>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="form-auth-login--email">Email</Label>
         <Input
+          id="form-auth-login--email"
           name="email"
           type="email"
           defaultValue={state.previous?.email}
@@ -28,8 +29,13 @@ export function LoginForm({ className }: { className?: string }) {
         {state?.errors?.email && <FormError>{state.errors.email[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="password">Password</Label>
-        <Input name="password" type="password" required />
+        <Label htmlFor="form-auth-login--password">Password</Label>
+        <Input
+          id="form-auth-login--password"
+          name="password"
+          type="password"
+          required
+        />
         {state?.errors?.password && (
           <FormError>{state.errors.password[0]}</FormError>
         )}

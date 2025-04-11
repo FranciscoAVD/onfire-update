@@ -22,8 +22,9 @@ export function RegisterForm({ className }: { className?: string }) {
       className={cn(`grid grid-cols-2 gap-4 ${className}`)}
     >
       <div className="flex flex-col gap-1">
-        <Label htmlFor="first">First name</Label>
+        <Label htmlFor="form-auth-register--first-name">First name</Label>
         <Input
+          id="form-auth-register--first-name"
           name="first"
           type="text"
           defaultValue={state.previous?.first}
@@ -33,8 +34,9 @@ export function RegisterForm({ className }: { className?: string }) {
         {state?.errors?.first && <FormError>{state.errors.first[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="last">Last name</Label>
+        <Label htmlFor="form-auth-register--last-name">Last name</Label>
         <Input
+          id="form-auth-register--last-name"
           name="last"
           type="text"
           defaultValue={state.previous?.last}
@@ -43,8 +45,9 @@ export function RegisterForm({ className }: { className?: string }) {
         {state?.errors?.last && <FormError>{state.errors.last[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="email">Email</Label>
+        <Label htmlFor="form-auth-register--email">Email</Label>
         <Input
+          id="form-auth-register--email"
           name="email"
           type="email"
           defaultValue={state.previous?.email}
@@ -53,8 +56,9 @@ export function RegisterForm({ className }: { className?: string }) {
         {state?.errors?.email && <FormError>{state.errors.email[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="phone">Phone</Label>
+        <Label htmlFor="form-auth-register--phone">Phone</Label>
         <Input
+          id="form-auth-register--phone"
           name="phone"
           type="text"
           value={formatPhoneNumber(phone)}
@@ -64,8 +68,14 @@ export function RegisterForm({ className }: { className?: string }) {
         {state?.errors?.phone && <FormError>{state.errors.phone[0]}</FormError>}
       </div>
       <div className="col-span-full flex flex-col gap-1">
-        <Label htmlFor="password">Password</Label>
-        <Input name="password" type="password" min={8} required />
+        <Label htmlFor="form-auth-register--password">Password</Label>
+        <Input
+          id="form-auth-register--password"
+          name="password"
+          type="password"
+          min={8}
+          required
+        />
         {state?.errors?.password && (
           <FormError>{state.errors.password[0]}</FormError>
         )}
