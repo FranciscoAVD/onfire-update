@@ -43,8 +43,9 @@ export function AddPackageForm({ className }: { className?: string }) {
       className={cn(`grid grid-cols-2 gap-4 ${className}`)}
     >
       <div className="col-span-full flex flex-col gap-1">
-        <Label htmlFor="name">Package name</Label>
+        <Label htmlFor="form-packages-add--name">Package name</Label>
         <Input
+          id="form-packages-add--name"
           name="name"
           type="text"
           defaultValue={state.previous?.name}
@@ -54,7 +55,7 @@ export function AddPackageForm({ className }: { className?: string }) {
         {state.errors?.name && <FormError>{state.errors.name[0]}</FormError>}
       </div>
       <div className="col-span-full flex flex-col gap-1">
-        <Label htmlFor="privates">Number of privates</Label>
+        <Label htmlFor="form-packages-add--privates">Number of privates</Label>
         <Select
           name="privates"
           defaultValue={state.previous?.privates ?? "1"}
@@ -78,15 +79,22 @@ export function AddPackageForm({ className }: { className?: string }) {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label htmlFor="cost">
+        <Label htmlFor="form-packages-add--cost">
           Cost
           <DollarSign className="size-4" aria-hidden />
         </Label>
-        <Input name="cost" type="text" value={cost} required readOnly />
+        <Input
+          id="form-packages-add--cost"
+          name="cost"
+          type="text"
+          value={cost}
+          required
+          readOnly
+        />
         {state.errors?.cost && <FormError>{state.errors.cost[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="discount">
+        <Label htmlFor="form-packages-add--discount">
           Discount
           <Percent className="size-4" aria-hidden />{" "}
         </Label>
@@ -112,8 +120,9 @@ export function AddPackageForm({ className }: { className?: string }) {
         )}
       </div>
       <div className="col-span-full flex flex-col gap-1">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="form-packages-add--description">Description</Label>
         <Textarea
+          id="form-packages-add--description"
           name="description"
           defaultValue={state.previous?.description ?? ""}
           required

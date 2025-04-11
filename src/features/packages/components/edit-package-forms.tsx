@@ -99,8 +99,13 @@ function EditPackageNameForm({
             className="relative grow space-y-2"
             action={formAction}
           >
-            <Label htmlFor="name">Edit Package name</Label>
-            <Input name="name" defaultValue={name} required />
+            <Label htmlFor="form-packages-edit--name">Edit Package name</Label>
+            <Input
+              id="form-packages-edit--name"
+              name="name"
+              defaultValue={name}
+              required
+            />
             <Input
               name="id"
               value={id}
@@ -197,8 +202,15 @@ function EditPackageDescriptionForm({
             className="relative grow space-y-2"
             action={formAction}
           >
-            <Label htmlFor="description">Edit Package description</Label>
-            <Textarea name="description" defaultValue={description} required />
+            <Label htmlFor="form-packages-edit--description">
+              Edit Package description
+            </Label>
+            <Textarea
+              id="form-packages-edit--description"
+              name="description"
+              defaultValue={description}
+              required
+            />
             <Input
               name="id"
               value={id}
@@ -353,11 +365,12 @@ function EditPackagePrivatesDiscountForm({
               </Select>
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor="cost">
+              <Label htmlFor="form-packages-edit--cost">
                 Cost
                 <DollarSign className="size-4" aria-hidden />
               </Label>
               <Input
+                id="form-packages-edit--cost"
                 name="cost"
                 type="text"
                 value={newCost}
