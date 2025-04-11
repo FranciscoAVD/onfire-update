@@ -24,7 +24,7 @@ export default async function PackagesPage() {
     <Main>
       {user.isAdmin() && (
         <Button className="flex ml-auto w-fit" asChild>
-          <Link href="/dashboard/packages/create">
+          <Link href="/dashboard/packages/add">
             <Plus />
             Add package
           </Link>
