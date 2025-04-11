@@ -6,7 +6,7 @@ import { routes } from "@/lib/constants";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export default async function CreatePackagePage() {
+export default async function AddPackagePage() {
   const user = await getCurrentUser();
   if (!user || !user.isAdmin()) return null;
 
