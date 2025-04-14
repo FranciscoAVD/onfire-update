@@ -14,7 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { DollarSign, LucideMonitorSmartphone, Percent } from "lucide-react";
-import { MINIMUM_PRIVATE_COST } from "@/features/classes/lib/constants";
+import { MINIMUM_PRIVATE_COST } from "@/features/classes/privates/lib/constants";
 import { addPackageAction } from "@/features/packages/actions/add-package-action";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";

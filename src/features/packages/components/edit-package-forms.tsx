@@ -30,7 +30,7 @@ import {
   updatePackageNumbersAction,
 } from "@/features/packages/actions/update-package-data-actions";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { MINIMUM_PRIVATE_COST } from "@/features/classes/lib/constants";
+import { MINIMUM_PRIVATE_COST } from "@/features/classes/privates/lib/constants";
 
 export function EditPackageForms({ p }: { p: Package }) {
   return (
