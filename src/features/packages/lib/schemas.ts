@@ -1,4 +1,4 @@
-import { MINIMUM_PRIVATE_COST } from "@/features/classes/lib/constants";
+import { MINIMUM_PRIVATE_COST } from "@/features/classes/privates/lib/constants";
 import { z } from "zod";
 
 export const addPackageSchema = z
