@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -13,18 +13,35 @@ export function getOneWeekFromNow(): Date {
 }
 
 /**
- * @param data expects to be in the shape of FormData
+ * @param data - FormData
+ * @return Returns a Record<string, string | string[]> of all the keys in the form data.
  */
-export function formDataToObject(data: FormData): Record<string, string> {
-  const formObject: Record<string, string> = {};
-  data.forEach((value, key) => {
-    formObject[key] = value.toString();
-  });
+export function formDataToObject(data: FormData): Record<string, string | string[]> {
+  const formObject: Record<string, string | string[]> = {};
+
+  for (const [key, value] of data.entries()) {
+    // Guard clause for if the key is not in the object yet
+    if (!formObject.hasOwnProperty(key)) {
+      formObject[key] = value.toString();
+      continue; // Skip the rest of the loop for this iteration
+    }
+
+    // Guard clause for if the value is already an array
+    const existing = formObject[key];
+    if (Array.isArray(existing)) {
+      existing.push(value.toString());
+      continue;
+    }
+
+    // If it's not an array yet, convert it to an array with both values
+    formObject[key] = [existing, value.toString()];
+  }
+
   return formObject;
 }
 
 /**
- * 
+ *
  * @param input A string of any kind.
  * @returns A string that only includes digits.
  */
@@ -33,7 +50,7 @@ export function cleanPhoneNumber(input: string): string {
 }
 
 /**
- * 
+ *
  * @param input A string of any kind.
  * @returns A phone number in the format (XXX) XXX - XXXX if there are enough digits in the string.
  */
@@ -56,7 +73,7 @@ export function formatPhoneNumber(input: string): string {
 }
 
 /**
- * 
+ *
  * @param input a string of any kind
  * @returns true if the string has a length of 10 and can be made an integer.
  */
