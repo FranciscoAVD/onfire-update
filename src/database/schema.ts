@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  jsonb,
   integer,
   pgTable,
   varchar,
@@ -112,9 +113,7 @@ export const groupTable = pgTable("groups", {
   style: varchar("style", { length: 50 }).notNull(),
   description: varchar("description", { length: 255 }).notNull(),
   cost: integer("cost").notNull(),
-  days: integer("days").array().notNull(), //ranges from 0-6
-  timeSlot: integer("time_slot").notNull(),
-  duration: integer("duration").notNull(), //minutes
+  dayTime: jsonb("day_time").notNull(),
   capacity: integer("capacity"),
   isActive: boolean("is_active").notNull().default(true),
 });
