@@ -27,7 +27,7 @@ export default async function AddPackagePage() {
             omnis earum officiis reiciendis molestias? Ea.
           </p>
         </div>
-        <AddPackageForm className="max-w-xl" />
+        <AddPackageForm className="" />
       </section>
     </Main>
   );
