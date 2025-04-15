@@ -3,8 +3,8 @@
 import { getCurrentUser } from "@/features/auth/lib/session";
 import { TResponse } from "@/lib/types";
 import { formDataToObject } from "@/lib/utils";
-import { addGroupSchema } from "../lib/schemas";
-import { addGroup } from "../use-cases/add-group";
+import { addGroupSchema } from "@/features/classes/groups/lib/schemas";
+import { addGroup } from "@/features/classes/groups/use-cases/add-group";
 
 export async function addGroupAction(
   previous: TResponse,
