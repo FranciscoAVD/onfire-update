@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Check, DollarSign, Percent, SquarePen, X } from "lucide-react";
+import { Check, DollarSign, Percent, SquarePen, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,7 +34,7 @@ import { MINIMUM_PRIVATE_COST } from "@/features/classes/privates/lib/constants"
 
 export function EditPackageForms({ p }: { p: Package }) {
   return (
-    <section className="py-10">
+    <section className="py-10 space-y-4">
       <Card className="py-0 overflow-hidden">
         <CardContent className="px-0">
           <EditPackageNameForm id={p.id} name={p.packageName} />
