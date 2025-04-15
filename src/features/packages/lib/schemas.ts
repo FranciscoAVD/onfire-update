@@ -89,3 +89,12 @@ export const updatePackageNumbersSchema = z.object({
     .refine((d) => Number.isInteger(+d) && Number(d) >= 0, "Invalid discount.")
     .transform((d) => Number(d)),
 });
+
+export const deletePackageSchema = z.object({
+  id: z
+    .string()
+    .min(1, "Invalid id.")
+    .refine((id) => Number.isInteger(+id) && +id > 0)
+    .transform((id) => Number(id)),
+  intent: z.string().startsWith("delete"),
+});
