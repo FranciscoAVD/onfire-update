@@ -38,11 +38,11 @@ export async function addPackageAction(
 
   await addPackage({
     packageName: data.name,
-    numberOfPrivates: +data.privates,
-    cost: +data.cost*100,//to save in cents
-    discount: +data.discount,
+    numberOfPrivates: data.privates,
+    cost: data.cost,
+    discount: data.discount,
     description: data.description,
-    daysValid: getDaysValid(+data.privates),
+    daysValid: getDaysValid(data.privates),
   })
 
   return { success: true, previous: object };

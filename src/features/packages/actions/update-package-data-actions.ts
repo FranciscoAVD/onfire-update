@@ -30,7 +30,7 @@ export async function updatePackageStatusAction(
   if (!success) return { success: false };
 
   const activeBool = data.active === "true";
-  await updatePackageActivity(+data.id, !activeBool);
+  await updatePackageActivity(data.id, !activeBool);
 
   revalidatePath("/dashboard/packages", "page");
   return { success: true };
@@ -48,7 +48,7 @@ export async function updatePackageNameAction(
   const { success, data } = updatePackageNameSchema.safeParse(object);
   if (!success) return { success: false };
 
-  await updatePackageName(+data.id, data.name);
+  await updatePackageName(data.id, data.name);
   revalidatePath(`/dashboard/packages/edit/${data.id}`, "page");
 
   return { success: true };
@@ -65,7 +65,7 @@ export async function updatePackageDescriptionAction(
   const { success, data } = updatePackageDescriptionSchema.safeParse(object);
   if (!success) return { success: false };
 
-  await updatePackageDescription(+data.id, data.description);
+  await updatePackageDescription(data.id, data.description);
   revalidatePath(`/dashboard/packages/edit/${data.id}`, "page");
 
   return { success: true };
