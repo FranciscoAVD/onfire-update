@@ -4,7 +4,7 @@ A "skill" does not equate to a turn pattern. It is up to the instructor to
 facilitate one. This is not an exhaustive list.
 
 ## Salsa
-
+`
 ### Salsa 1
 #### Partnerwork
 1. Basic + Posture
@@ -33,7 +33,7 @@ facilitate one. This is not an exhaustive list.
 9. Mambo
 10. Cajita
 11. 'Dentro 'fuera
-
+`
 ### Salsa 2
 #### Partnerwork
 1. Vueltas alternadas (e.g. 6/4)
