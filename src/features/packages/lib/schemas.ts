@@ -1,39 +1,51 @@
 import { MINIMUM_PRIVATE_COST } from "@/features/classes/privates/lib/constants";
 import { z } from "zod";
 
-export const addPackageSchema = z
-  .object({
-    name: z
-      .string()
-      .min(1, "Package name is required.")
-      .max(50, "Package name is too long."),
-    privates: z.string().min(1),
-    cost: z.string().min(1, "Cost is required."),
-    discount: z.string().min(1),
-    description: z.string().min(20, "Description is not long enough."),
-  })
-  .refine((d) => Number.isInteger(+d.privates), {
-    path: ["privates"],
-    message: "Invalid number of privates.",
-  })
-  .refine((d) => Number.isInteger(+d.cost) && +d.cost >= MINIMUM_PRIVATE_COST, {
-    path: ["cost"],
-    message: "Invalid cost.",
-  })
-  .refine((d) => Number.isInteger(+d.discount), {
-    path: ["discount"],
-    message: "Invalid discount.",
-  });
+export const addPackageSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Package name is required.")
+    .max(50, "Package name is too long."),
+  privates: z
+    .string()
+    .min(1)
+    .refine(
+      (p) => Number.isInteger(+p) && Number(p) >= 1,
+      "Invalid number of privates.",
+    )
+    .transform((p) => Number(p)),
+  cost: z
+    .string()
+    .min(1, "Cost is required.")
+    .refine(
+      (c) => Number.isInteger(+c) && Number(c) >= MINIMUM_PRIVATE_COST,
+      "Invalid cost.",
+    )
+    .transform((c) => Number(c) * 100),
+  discount: z
+    .string()
+    .min(1)
+    .refine((d) => Number.isInteger(+d) && Number(d) >= 0, "Invalid discount.")
+    .transform((d) => Number(d)),
 
-export const updatePackageStatusSchema = z
-  .object({
-    id: z.string().min(1, "Invalid id."),
-    active: z.enum(["true", "false"]),
-  })
-  .refine((d) => Number.isInteger(+d.id));
+  description: z.string().min(20, "Description is not long enough."),
+});
+
+export const updatePackageStatusSchema = z.object({
+  id: z
+    .string()
+    .min(1, "Invalid id.")
+    .refine((id) => Number.isInteger(+id) && +id > 0)
+    .transform((id) => Number(id)),
+  active: z.enum(["true", "false"]),
+});
 
 export const updatePackageNameSchema = z.object({
-  id: z.string().min(1, "Invalid id."),
+  id: z
+    .string()
+    .min(1, "Invalid id.")
+    .refine((id) => Number.isInteger(+id) && +id > 0)
+    .transform((id) => Number(id)),
   name: z
     .string()
     .min(1, "Package name is required.")
@@ -41,29 +53,39 @@ export const updatePackageNameSchema = z.object({
 });
 
 export const updatePackageDescriptionSchema = z.object({
-  id: z.string().min(1, "Invalid id."),
+  id: z
+    .string()
+    .min(1, "Invalid id.")
+    .refine((id) => Number.isInteger(+id) && +id > 0)
+    .transform((id) => Number(id)),
   description: z
     .string()
     .min(1, "Package description is required.")
     .max(255, "Package description is too long."),
 });
 
-export const updatePackageNumbersSchema = z
-  .object({
-    id: z.string().min(1, "Invalid id."),
-    privates: z.string().min(1),
-    cost: z.string().min(1, "Cost is required."),
-    discount: z.string().min(1),
-  })
-  .refine((d) => Number.isInteger(+d.privates), {
-    path: ["privates"],
-    message: "Invalid number of privates.",
-  })
-  .refine((d) => Number.isInteger(+d.cost) && +d.cost >= MINIMUM_PRIVATE_COST, {
-    path: ["cost"],
-    message: "Invalid cost.",
-  })
-  .refine((d) => Number.isInteger(+d.discount), {
-    path: ["discount"],
-    message: "Invalid discount.",
-  });
+export const updatePackageNumbersSchema = z.object({
+  id: z
+    .string()
+    .min(1, "Invalid id.")
+    .refine((id) => Number.isInteger(+id) && +id > 0)
+    .transform((id) => Number(id)),
+  privates: z
+    .string()
+    .min(1)
+    .refine((p) => Number.isInteger(+p) && Number(p) >= 1, "Invalid privates.")
+    .transform((p) => Number(p)),
+  cost: z
+    .string()
+    .min(1, "Cost is required.")
+    .refine(
+      (c) => Number.isInteger(+c) && Number(c) >= MINIMUM_PRIVATE_COST,
+      "Invalid cost.",
+    )
+    .transform((c) => Number(c) * 100),
+  discount: z
+    .string()
+    .min(1)
+    .refine((d) => Number.isInteger(+d) && Number(d) >= 0, "Invalid discount.")
+    .transform((d) => Number(d)),
+});
