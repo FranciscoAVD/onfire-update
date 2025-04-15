@@ -6,7 +6,7 @@ import { getCurrentUser } from "@/features/auth/lib/session";
 import { TResponse } from "@/lib/types";
 import { formDataToObject } from "@/lib/utils";
 import { addPackageSchema } from "@/features/packages/lib/schemas";
-import { getDaysValid } from "../lib/utils";
+import { getDaysValid } from "@/features/packages/lib/utils";
 
 interface AddPackageResponse extends TResponse {
   errors?: {
@@ -16,7 +16,7 @@ interface AddPackageResponse extends TResponse {
     description?: string[] | undefined;
     discount?: string[] | undefined;
   };
-  previous?: Record<string, string>;
+  previous?: Record<string, string|string[]>;
 }
 
 export async function addPackageAction(

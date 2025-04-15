@@ -58,7 +58,11 @@ export function AddPackageForm({ className }: { className?: string }) {
         <Label htmlFor="form-packages-add--privates">Number of privates</Label>
         <Select
           name="privates"
-          defaultValue={state.previous?.privates ?? "1"}
+          defaultValue={
+            Array.isArray(state.previous?.privates)
+              ? state.previous.privates[0]
+              : "1"
+          }
           onValueChange={(v) => setNumPriv(+v)}
           required
         >
@@ -100,7 +104,11 @@ export function AddPackageForm({ className }: { className?: string }) {
         </Label>
         <Select
           name="discount"
-          defaultValue={state.previous?.discount ?? "0"}
+          defaultValue={
+            Array.isArray(state.previous?.discount)
+              ? state.previous.discount[0]
+              : "0"
+          }
           onValueChange={(v) => setDiscount(+v)}
           required
         >
@@ -113,6 +121,8 @@ export function AddPackageForm({ className }: { className?: string }) {
             <SelectItem value="10">10</SelectItem>
             <SelectItem value="15">15</SelectItem>
             <SelectItem value="20">20</SelectItem>
+            <SelectItem value="25">25</SelectItem>
+            <SelectItem value="30">30</SelectItem>
           </SelectContent>
         </Select>
         {state.errors?.discount && (
