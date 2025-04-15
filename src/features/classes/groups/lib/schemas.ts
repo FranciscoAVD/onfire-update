@@ -2,11 +2,13 @@ import { z } from "zod";
 import { MINIMUM_GROUP_COST } from "@/features/classes/groups/lib/constants";
 import { rhythmSchema, styleSchema } from "@/features/classes/lib/schemas";
 
-export const dayTimeSchema = z.array(z.object({
-  day: z.number().min(0).max(6),
-  startTime: z.number().min(1300).max(2100),
-  endTime: z.number().min(1330).max(2130),
-}));
+export const dayTimeSchema = z.array(
+  z.object({
+    day: z.number().min(0).max(6),
+    startTime: z.number().min(1300).max(2100),
+    endTime: z.number().min(1330).max(2130),
+  }),
+);
 
 export const addGroupSchema = z
   .object({
@@ -16,9 +18,11 @@ export const addGroupSchema = z
     cost: z
       .string()
       .min(1)
-      .refine((c) => Number.isInteger(+c) && parseInt(c) >= MINIMUM_GROUP_COST, {
-        message: "Invalid cost.",
-      }),
+      .refine(
+        (c) => Number.isInteger(+c) && Number(c) >= MINIMUM_GROUP_COST,
+        "Invalid cost.",
+      )
+      .transform((c) => Number(c) * 100),
     style: styleSchema,
     description: z.string().min(20).max(255),
     days: z.union([z.string(), z.array(z.string())]).transform((data, ctx) => {
@@ -34,7 +38,7 @@ export const addGroupSchema = z
           });
           return z.NEVER;
         }
-        return parsed;
+        return [parsed];
       }
 
       //days is an array
@@ -56,9 +60,7 @@ export const addGroupSchema = z
   })
   .catchall(z.string())
   .transform((data, ctx) => {
-    const rawDays = Array.isArray(data.days) ? data.days : [data.days];
-
-    const dayTimes = rawDays.map((d) => {
+    const dayTimes = data.days.map((d) => {
       const start = parseInt(data[`start_${d}`]);
       const end = parseInt(data[`end_${d}`]);
 
@@ -76,7 +78,7 @@ export const addGroupSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Invalid time.",
-          path: [`start_${d}`]
+          path: [`start_${d}`],
         });
         return z.NEVER;
       }
@@ -84,7 +86,7 @@ export const addGroupSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Invalid time.",
-          path: [`end_${d}`]
+          path: [`end_${d}`],
         });
         return z.NEVER;
       }
