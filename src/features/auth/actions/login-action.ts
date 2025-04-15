@@ -7,18 +7,19 @@ import { loginUserSchema } from "@/features/auth/lib/schemas";
 import { getUserByEmail } from "@/features/users/use-cases/get-user";
 import { isSamePassword } from "@/features/auth/lib/hash";
 import { redirect } from "next/navigation";
+import { Roles } from "@/features/users/lib/types";
 
 interface LoginResponse extends TResponse {
   errors?: {
     email?: string[] | undefined;
     password?: string[] | undefined;
   };
-  previous?: Record<string,string>;
+  previous?: Record<string, string | string[]>;
 }
 
 export async function loginAction(
   previous: LoginResponse,
-  unverified: FormData
+  unverified: FormData,
 ): Promise<LoginResponse> {
   const session = await getSession();
   if (session) return { success: false };
@@ -26,11 +27,14 @@ export async function loginAction(
   const object = formDataToObject(unverified);
 
   const { success, data, error } = loginUserSchema.safeParse(object);
-  if (!success) return { success: false, errors: error.flatten().fieldErrors, previous: object };
+  if (!success)
+    return {
+      success: false,
+      errors: error.flatten().fieldErrors,
+      previous: object,
+    };
 
-  const normalizedEmail = data.email.toLowerCase();
-
-  const user = await getUserByEmail(normalizedEmail);
+  const user = await getUserByEmail(data.email);
 
   if (!user)
     return {
@@ -55,8 +59,8 @@ export async function loginAction(
   await createSession({
     id: user.id,
     name: `${user.firstName} ${user.lastName}`,
-    email: normalizedEmail,
-    role: user.role,
+    email: data.email,
+    role: user.role as Roles,
   });
 
   redirect("/dashboard");
