@@ -15,10 +15,9 @@ facilitate one. This is not an exhaustive list.
 7. Double inside turn (left)
 8. Sweetheart
 9. Cross Body Lead (CBD)
-10. Open break
-11. CBD + Inside Turn
-12. Pasarela
-13. Double outside turn (right)
+10. CBD + Inside Turn
+11. Pasarela
+12. Double outside turn (right)
 
 #### Shines
 1. Basic
