@@ -1,4 +1,5 @@
 ## TODO
+- display errors on add group form. return previous state on error
 
 ## Conventions
 ### Forms
