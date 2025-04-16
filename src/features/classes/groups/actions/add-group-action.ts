@@ -15,7 +15,7 @@ export async function addGroupAction(
   if (!user || !user.isAdmin()) return { success: false };
 
   const object = formDataToObject(unverified);
-  const { success, data, error } = addGroupSchema.safeParse(object);
+  const { success, data } = addGroupSchema.safeParse(object);
 
   if (!success) return { success: false };
 
