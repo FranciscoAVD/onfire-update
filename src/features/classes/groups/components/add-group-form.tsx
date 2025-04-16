@@ -26,16 +26,8 @@ import { MINIMUM_GROUP_COST } from "@/features/classes/groups/lib/constants";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { addGroupAction } from "@/features/classes/groups/actions/add-group-action";
-
-const days = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { days } from "@/features/classes/lib/constants";
 
 export function AddGroupForm({ className }: { className?: string }) {
   const [rhythm, setRhythm] = useState<string>("Salsa");
@@ -58,8 +50,8 @@ export function AddGroupForm({ className }: { className?: string }) {
   }, [rhythm]);
   useEffect(() => {
     if (state.success) {
-      toast("Package successully created!", {
-        description: "Visit package page to see the newly added package.",
+      toast("Group successully created!", {
+        description: "Visit the group page to see the newly added group.",
       });
     }
   }, [state]);
@@ -184,8 +176,8 @@ export function AddGroupForm({ className }: { className?: string }) {
           required
         />
       </div>
-      <Button type="submit" className="col-span-full">
-        Add group
+      <Button type="submit" className="col-span-full" disabled={isLoading}>
+        {isLoading ? <LoadingSpinner /> : "Add group"}
       </Button>
     </form>
   );
