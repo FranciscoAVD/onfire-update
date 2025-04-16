@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { formatWithOptions } from "util";
+import { format } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -81,4 +83,12 @@ export function isValidPhoneNumber(input: string): boolean {
   const cleaned = cleanPhoneNumber(input);
 
   return Number.isInteger(+cleaned) && cleaned.length === 10;
+}
+
+/**
+@param d - A Date object
+@returns formatted date in the form of yyyy-mm-dd (e.g. 1997-12-02)
+*/
+export function formatDateToDefault(d:Date): string {
+  return format(d, "yyyy-MM-dd");
 }
