@@ -83,13 +83,8 @@ export async function updatePackageNumbersAction(
   const { success, data } = updatePackageNumbersSchema.safeParse(object);
   if (!success) return { success: false };
 
-  await updatePackageNumbers(
-    +data.id,
-    +data.cost * 100,//converting to cents
-    +data.discount,
-    +data.privates,
-  );
-  
+  await updatePackageNumbers(data.id, data.cost, data.discount, data.privates);
+
   revalidatePath(`/dashboard/packages/edit/${data.id}`, "page");
   return { success: true };
 }

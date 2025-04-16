@@ -16,7 +16,7 @@ interface AddPackageResponse extends TResponse {
     description?: string[] | undefined;
     discount?: string[] | undefined;
   };
-  previous?: Record<string, string|string[]>;
+  previous?: Record<string, string | string[]>;
 }
 
 export async function addPackageAction(
@@ -43,7 +43,7 @@ export async function addPackageAction(
     discount: data.discount,
     description: data.description,
     daysValid: getDaysValid(data.privates),
-  })
+  });
 
   return { success: true, previous: object };
 }
