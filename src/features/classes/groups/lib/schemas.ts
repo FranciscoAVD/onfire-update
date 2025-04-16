@@ -9,6 +9,18 @@ export const dayTimeSchema = z.array(
     endTime: z.number().min(1330).max(2130),
   }),
 );
+export const groupSchema = z.object({
+  id: z.number(),
+  type: z.string(),
+  name: z.string(),
+  rhythm: z.string(),
+  cost: z.number(),
+  style: z.string(),
+  description: z.string(),
+  capacity: z.number().nullable(),
+  dayTime: dayTimeSchema
+});
+export const groupsSchema = z.array(groupSchema);
 
 export const addGroupSchema = z
   .object({
