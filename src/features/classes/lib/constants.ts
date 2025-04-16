@@ -1,5 +1,15 @@
 import { Rhythm, Style, Times } from "@/features/classes/lib/types";
 
+export const days = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
+
 export const DISABLED_DAYS = [0,5]; //Sunday & Friday
 export const salsaStyles: Style[] = ["On 1", "On 2", "On 1/On 2"];
 export const otherStyles: Style[] = ["Tradicional"];
