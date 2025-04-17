@@ -39,48 +39,51 @@ export default function PackageCard({
   }, [state]);
   const dollarAmount = p.cost / 100; //cents -> dollar
   return (
-    <Card className="relative text-center border-2 hover:border-primary rounded-xl transition-all">
-      {isAdmin && <PackageCardPopover id={p.id} isActive={p.isActive} />}
-      <CardHeader className="gap-0">
-        <span className="w-fit mx-auto mb-2 text-sm font-semibold bg-orange-100 rounded-full px-3 py-1">
-          {p.discount > 0 ? `${p.discount}% Discount` : "Base price"}
-        </span>
-        <CardTitle className="text-2xl capitalize font-bold">
-          {p.packageName}
-        </CardTitle>
-        <CardDescription>
-          {p.numberOfPrivates} {p.numberOfPrivates > 1 ? "Clases" : "Clase"}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="">
-        <span className="text-5xl font-bold">${dollarAmount}</span>{" "}
-        <p className="my-6 text-sm">{p.description}</p>
-      </CardContent>
-      <CardFooter className="block mt-auto">
-        <form className="" action={formAction}>
-          <Input
-            name="id"
-            value={p.id}
-            className="invisible h-0 p-0"
-            readOnly
-          />
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={!isActive || isLoading}
-          >
-            {isActive ? (
-              isLoading ? (
-                <LoadingSpinner />
+    <div className="relative group">
+      <div className="absolute inset-0 bg-orange-100 border-2 border-transparent group-hover:border-primary rounded-xl group-hover:rotate-4  transition-all duration-300" />
+      <Card className="relative h-full text-center border-2 hover:border-primary rounded-xl group-hover:-rotate-2 transition-all duration-300">
+        {isAdmin && <PackageCardPopover id={p.id} isActive={p.isActive} />}
+        <CardHeader className="gap-0">
+          <span className="w-fit mx-auto mb-2 text-sm font-semibold bg-orange-100 rounded-full px-3 py-1">
+            {p.discount > 0 ? `${p.discount}% Discount` : "Base price"}
+          </span>
+          <CardTitle className="text-2xl capitalize font-bold">
+            {p.packageName}
+          </CardTitle>
+          <CardDescription>
+            {p.numberOfPrivates} {p.numberOfPrivates > 1 ? "Clases" : "Clase"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="">
+          <span className="text-5xl font-bold">${dollarAmount}</span>{" "}
+          <p className="my-6 text-sm">{p.description}</p>
+        </CardContent>
+        <CardFooter className="block mt-auto">
+          <form className="" action={formAction}>
+            <Input
+              name="id"
+              value={p.id}
+              className="invisible h-0 p-0"
+              readOnly
+            />
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={!isActive || isLoading}
+            >
+              {isActive ? (
+                isLoading ? (
+                  <LoadingSpinner />
+                ) : (
+                  "Bailemos"
+                )
               ) : (
-                "Bailemos"
-              )
-            ) : (
-              "Disabled"
-            )}
-          </Button>
-        </form>
-      </CardFooter>
-    </Card>
+                "Disabled"
+              )}
+            </Button>
+          </form>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
