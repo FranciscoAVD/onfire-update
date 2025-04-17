@@ -38,7 +38,7 @@ export default async function PackagesPage() {
             clases privadas en cualquier ritmo que ofrezcamos. Cada paquete
             tiene una fecha de expiracion y por lo tanto la totalidad de las
             clases privadas tendran que programarse en o antes de la fecha de
-            expiracion.
+            expiracion. Solo se puede tener un paquete activo a la vez.
           </p>
         </div>
         <div role="grid" className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
