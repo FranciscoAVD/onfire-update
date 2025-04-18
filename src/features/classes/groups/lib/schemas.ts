@@ -87,8 +87,17 @@ export const addGroupSchema = z
         return z.NEVER;
       }
       //Ensure start and end fall are keys
-
-      if (!weekGroupTimeSlots.get(d)?.has(start)) {
+      const timeMap = weekGroupTimeSlots.get(d);
+      if(!timeMap){
+        
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Invalid date.",
+          path: [`days`],
+        });
+        return z.NEVER;
+      }
+      if (!timeMap.has(start)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Invalid start time.",
@@ -96,7 +105,7 @@ export const addGroupSchema = z
         });
         return z.NEVER;
       }
-      if (!weekGroupTimeSlots.get(d)?.has(end)) {
+      if (!timeMap.has(end)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Invalid end time.",
