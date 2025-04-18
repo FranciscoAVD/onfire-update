@@ -1,15 +1,22 @@
-import {
-  weekdayTimeSlots,
-  weekendTimeSlots,
-} from "@/features/classes/lib/constants";
-import { Times } from "@/features/classes/lib/types";
+import { addDays, getDay, startOfToday, isEqual } from "date-fns";
+import { DISABLED_DAYS } from "./constants";
 
 /**
-@param dayIdx - the idx of the day of the week ranging from 0 - 6 (Sun - Sat).
-@returns a map of the time slots for the day.
+The function is meant to prevent initializing dates to today or dates that are
+defined as disabled in the DISABLED_DAYS constant.
+@param d - A Date object
+@returns an object with the valid Date object and its index (0-6)
 */
-export function getDayTimeSlots(dayIdx: number): Times | null {
-  if (dayIdx < 0 || dayIdx > 6) return null;
-  if (dayIdx === 0 || dayIdx === 6) return weekendTimeSlots;
-  return weekdayTimeSlots;
+export function getValidDate(d: Date): { day: Date; idx: number } {
+  const today = startOfToday();
+  const nextDay = addDays(d, 1);
+
+  if (isEqual(today, d)) return getValidDate(nextDay);
+
+  const dayIdx = getDay(d);
+
+  if (DISABLED_DAYS.includes(dayIdx)) {
+    return { day: nextDay, idx: getDay(nextDay) };
+  }
+  return { day: d, idx: dayIdx };
 }
