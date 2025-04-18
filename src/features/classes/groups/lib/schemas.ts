@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { MINIMUM_GROUP_COST } from "@/features/classes/groups/lib/constants";
 import { rhythmSchema, styleSchema } from "@/features/classes/lib/schemas";
+import { weekGroupTimeSlots } from "../../lib/constants";
 
 export const dayTimeSchema = z.array(
   z.object({
@@ -18,7 +19,7 @@ export const groupSchema = z.object({
   style: z.string(),
   description: z.string(),
   capacity: z.number().nullable(),
-  dayTime: dayTimeSchema
+  dayTime: dayTimeSchema,
 });
 export const groupsSchema = z.array(groupSchema);
 
@@ -85,19 +86,20 @@ export const addGroupSchema = z
         });
         return z.NEVER;
       }
-      //Ensure start and end fall within range
-      if (start < 1300 || start > 2100) {
+      //Ensure start and end fall are keys
+
+      if (!weekGroupTimeSlots.get(d)?.has(start)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Invalid time.",
+          message: "Invalid start time.",
           path: [`start_${d}`],
         });
         return z.NEVER;
       }
-      if (end < 1030 || end > 2130) {
+      if (!weekGroupTimeSlots.get(d)?.has(end)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Invalid time.",
+          message: "Invalid end time.",
           path: [`end_${d}`],
         });
         return z.NEVER;
