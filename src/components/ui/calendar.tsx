@@ -100,9 +100,9 @@ export function Calendar({
               className={cn(
                 "flex items-center justify-center aspect-square hover:bg-neutral-100 disabled:hover:bg-transparent disabled:text-neutral-500 rounded-full cursor-pointer disabled:cursor-default",
                 isToday && "disabled:text-orange-500",
+                disabledAfter && isEqual(d, disabledAfter) && "text-blue-500",
                 isEqual(day, d) &&
                   "bg-orange-100 hover:bg-orange-100/90 text-orange-500",
-                disabledAfter && isEqual(d, disabledAfter) && "text-red-500",
               )}
               onClick={() => {
                 setDay(d);
