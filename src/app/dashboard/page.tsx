@@ -1,5 +1,6 @@
 import { Main } from "@/components/ui/main";
 import { getCurrentUser } from "@/features/auth/lib/session";
+import { AddPrivateForm } from "@/features/classes/privates/components/add-private-form";
 import { UserPackageCard } from "@/features/packages/components/user-package-card";
 import { getActivePurchase } from "@/features/purchases/use-cases/get-purchase";
 
@@ -12,7 +13,12 @@ export default async function DashboardPage() {
   return (
     <Main>
       <section className="grid grid-cols-2 gap-6">
-        {purchase && <UserPackageCard p={purchase} />}
+        {purchase && (
+          <>
+            <UserPackageCard p={purchase} />
+            <AddPrivateForm expirationDate={purchase.expirationDate} />
+          </>
+        )}
       </section>
     </Main>
   );
