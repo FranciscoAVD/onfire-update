@@ -40,14 +40,14 @@ const weekendGroupTimeSlots: Times = new Map([
   [1700, "5:00 PM"],
 ]);
 
-export const weekdayPrivateTimeSlots: Times = new Map([
+const weekdayPrivateTimeSlots: Times = new Map([
   [1700, "5:00 PM"],
   [1800, "6:00 PM"],
   [1900, "7:00 PM"],
   [2000, "8:00 PM"],
 ]);
 
-export const weekendPrivateTimeSlots: Times = new Map([
+const weekendPrivateTimeSlots: Times = new Map([
   [1000, "10:00 AM"],
   [1100, "11:00 AM"],
   [1200, "12:00 PM"],
