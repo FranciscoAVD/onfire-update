@@ -18,14 +18,18 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { getValidDate } from "@/features/classes/lib/utils";
-import { format, startOfToday, parseISO, getDay } from "date-fns";
+import { format, startOfToday, parseISO, isWeekend } from "date-fns";
 import { cn, formatDateToDefault } from "@/lib/utils";
 import {
   rhythms,
-  weekPrivateTimeSlots,
+  weekdayPrivateTimeSlots,
+  weekendPrivateTimeSlots,
 } from "@/features/classes/lib/constants";
-import { Times } from "@/features/classes/lib/types";
+import { addPrivateAction } from "@/features/classes/privates/actions/add-private-action";
 import { toast } from "sonner";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { FormError } from "@/components/ui/form-error";
+
 export function AddPrivateForm({
   className,
   expirationDate,
@@ -33,20 +37,20 @@ export function AddPrivateForm({
   className?: string;
   expirationDate: string;
 }) {
+  const [state, formAction, isLoading] = useActionState(addPrivateAction, {
+    success: false,
+  });
   const validDay = getValidDate(startOfToday());
   const [selected, setSelected] = useState<Date>(validDay.day);
-  const [times, setTimes] = useState<Times | undefined>(
-    weekPrivateTimeSlots.get(validDay.idx),
-  );
   useEffect(() => {
-    setTimes(weekPrivateTimeSlots.get(getDay(selected)));
-  }, [selected]);
-
-  // useEffect(() => {
-  //   toast("Private scheduled");
-  // }, []);
+    if (state.success) {
+      toast("Private scheduled", {
+        description: `Private schedule for ${format(selected, "EEEE, MMMM d")}`,
+      });
+    }
+  }, [state]);
   return (
-    <form className={cn(`grid gap-4 ${className}`)}>
+    <form action={formAction} className={cn(`grid gap-4 ${className}`)}>
       <div className="flex flex-col">
         <Label htmlFor="form-private-add--date">Date</Label>
         <Popover>
@@ -68,22 +72,37 @@ export function AddPrivateForm({
           className="invisible p-0 size-0"
           readOnly
         />
+        {state.errors?.date && <FormError>{state.errors.date[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
         <Label>Times</Label>
-        <Select name="time" required>
+        <Select
+          name="time"
+          defaultValue={state.previous?.time.toString() ?? undefined}
+          required
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select a time" />
           </SelectTrigger>
           <SelectContent>
-            {times &&
-              Array.from(times.entries()).map(([key, value]) => (
-                <SelectItem key={key} value={`${key}`}>
-                  {value}
-                </SelectItem>
-              ))}
+            {isWeekend(selected)
+              ? Array.from(weekendPrivateTimeSlots.entries()).map(
+                  ([key, value]) => (
+                    <SelectItem key={key} value={key.toString()}>
+                      {value}
+                    </SelectItem>
+                  ),
+                )
+              : Array.from(weekdayPrivateTimeSlots.entries()).map(
+                  ([key, value]) => (
+                    <SelectItem key={key} value={key.toString()}>
+                      {value}
+                    </SelectItem>
+                  ),
+                )}
           </SelectContent>
         </Select>
+        {state.errors?.time && <FormError>{state.errors.time[0]}</FormError>}
       </div>
       <div className="flex flex-col gap-1">
         <Label>Rhythm</Label>
@@ -99,8 +118,13 @@ export function AddPrivateForm({
             ))}
           </SelectContent>
         </Select>
+        {state.errors?.rhythm && (
+          <FormError>{state.errors.rhythm[0]}</FormError>
+        )}
       </div>
-      <Button type="submit">Schedule</Button>
+      <Button type="submit" disabled={isLoading}>
+        {isLoading ? <LoadingSpinner /> : "Schedule"}
+      </Button>
     </form>
   );
 }
