@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { PackageCardPopover } from "@/features/packages/components/package-card-popover";
-import { addPackagePurchaseAction } from "@/features/purchases/actions/add-package-action";
+import { addPackagePurchaseAction } from "@/features/purchases/actions/add-purchase-action";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
