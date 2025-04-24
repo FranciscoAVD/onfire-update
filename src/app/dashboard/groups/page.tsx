@@ -11,7 +11,6 @@ export default async function GroupsPage() {
   const user = await getCurrentUser();
   if (!user) return null;
   const groups = await getActiveGroups();
-  console.log(groups);
   const { success, data } = groupsSchema.safeParse(groups);
   return (
     <Main>
