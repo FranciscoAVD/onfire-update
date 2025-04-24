@@ -9,14 +9,11 @@ defined as disabled in the DISABLED_DAYS constant.
 */
 export function getValidDate(d: Date): { day: Date; idx: number } {
   const today = startOfToday();
+  const dayIdx = getDay(d);
   const nextDay = addDays(d, 1);
 
   if (isEqual(today, d)) return getValidDate(nextDay);
+  if (DISABLED_DAYS.includes(dayIdx)) return getValidDate(nextDay);
 
-  const dayIdx = getDay(d);
-
-  if (DISABLED_DAYS.includes(dayIdx)) {
-    return { day: nextDay, idx: getDay(nextDay) };
-  }
   return { day: d, idx: dayIdx };
 }
