@@ -12,8 +12,7 @@ export function getValidDate(d: Date): { day: Date; idx: number } {
   const dayIdx = getDay(d);
   const nextDay = addDays(d, 1);
 
-  if (isEqual(today, d)) return getValidDate(nextDay);
-  if (DISABLED_DAYS.includes(dayIdx)) return getValidDate(nextDay);
+  if (isEqual(today,d) || DISABLED_DAYS.includes(dayIdx)) return getValidDate(nextDay);
 
   return { day: d, idx: dayIdx };
 }
