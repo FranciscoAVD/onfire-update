@@ -1,5 +1,5 @@
 import { addDays, getDay, startOfToday, isEqual } from "date-fns";
-import { DISABLED_DAYS } from "./constants";
+import { DISABLED_DAYS } from "@/features/classes/lib/constants";
 
 /**
 The function is meant to prevent initializing dates to today or dates that are
@@ -12,7 +12,8 @@ export function getValidDate(d: Date): { day: Date; idx: number } {
   const dayIdx = getDay(d);
   const nextDay = addDays(d, 1);
 
-  if (isEqual(today,d) || DISABLED_DAYS.includes(dayIdx)) return getValidDate(nextDay);
+  if (isEqual(today, d) || DISABLED_DAYS.includes(dayIdx))
+    return getValidDate(nextDay);
 
   return { day: d, idx: dayIdx };
 }
