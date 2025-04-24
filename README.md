@@ -1,7 +1,7 @@
 ## TODO
 - display errors on add group form. return previous state on error
 - migrate from actions to api
-
+- Handle errors that may arise from database calls.
 ## Conventions
 ### Forms
 `id` attributes will be named in this style: `form-feature-action--fieldname` 
