@@ -3,13 +3,9 @@ import { useState, useActionState, useEffect } from "react";
 import { Package } from "@/database/types";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { H3 } from "@/components/ui/headers";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Select,
@@ -20,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Check, DollarSign, Percent, SquarePen, Trash2, X } from "lucide-react";
+import { Check, DollarSign, Percent, SquarePen, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { Textarea } from "@/components/ui/textarea";
