@@ -3,7 +3,7 @@ import { packagesPurchasedTable } from "@/database/schema";
 import { PackagePurchased } from "@/database/types";
 import { eq } from "drizzle-orm";
 
-export async function updatePrivatesFromPurchase(
+export async function updatePrivatesLeft(
   purchaseId: PackagePurchased["id"],
   total: number,
 ): Promise<void> {
