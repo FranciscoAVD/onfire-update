@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { MINIMUM_GROUP_COST } from "@/features/classes/groups/lib/constants";
 import { rhythmSchema, styleSchema } from "@/features/classes/lib/schemas";
-import { weekGroupTimeSlots } from "../../lib/constants";
+import { weekGroupTimeSlots } from "@/features/classes/lib/constants";
 
 export const dayTimeSchema = z.array(
   z.object({
