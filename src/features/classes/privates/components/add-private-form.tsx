@@ -26,6 +26,13 @@ import {
 import { getValidDate } from "@/features/classes/lib/utils";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { FormError } from "@/components/ui/form-error";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function AddPrivateForm({ expirationDate }: { expirationDate: Date }) {
   const router = useRouter();
@@ -69,71 +76,85 @@ export function AddPrivateForm({ expirationDate }: { expirationDate: Date }) {
     if (data.errors) setErrors(data.errors);
   }
   return (
-    <form className="grid gap-4" onSubmit={handleSubmit}>
-      <div>
-        <Label htmlFor="date">Date</Label>
-        <Popover>
-          <PopoverTrigger className="mt-2 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none">
-            {format(selected, "EEEE, MMMM d")}
-          </PopoverTrigger>
-          <PopoverContent align="start">
-            <Calendar
-              day={selected}
-              setDay={setSelected}
-              disabledAfter={expirationDate}
-            />
-          </PopoverContent>
-        </Popover>
-        {errors?.date && <FormError>{errors.date[0]}</FormError>}
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="time">Time</Label>
-        <Select
-          value={time.toString()}
-          onValueChange={(v) => setTime(+v)}
-          name="time"
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Choose a time" />
-          </SelectTrigger>
-          <SelectContent>
-            {weekend
-              ? [...weekendPrivateTimeSlots.entries()].map(([key, value]) => (
-                  <SelectItem key={key.toString()} value={key.toString()}>
-                    {value}
-                  </SelectItem>
-                ))
-              : [...weekdayPrivateTimeSlots.entries()].map(([key, value]) => (
-                  <SelectItem key={key.toString()} value={key.toString()}>
-                    {value}
+    <Card>
+      <CardHeader>
+        <CardTitle>Schedule a private</CardTitle>
+        <CardDescription>
+          Agenda tu clase privada para manana en adelante!
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form className="grid gap-4" onSubmit={handleSubmit}>
+          <div>
+            <Label htmlFor="date">Date</Label>
+            <Popover>
+              <PopoverTrigger className="mt-2 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none">
+                {format(selected, "EEEE, MMMM d")}
+              </PopoverTrigger>
+              <PopoverContent align="start">
+                <Calendar
+                  day={selected}
+                  setDay={setSelected}
+                  disabledAfter={expirationDate}
+                />
+              </PopoverContent>
+            </Popover>
+            {errors?.date && <FormError>{errors.date[0]}</FormError>}
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="time">Time</Label>
+            <Select
+              value={time.toString()}
+              onValueChange={(v) => setTime(+v)}
+              name="time"
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Choose a time" />
+              </SelectTrigger>
+              <SelectContent>
+                {weekend
+                  ? [...weekendPrivateTimeSlots.entries()].map(
+                      ([key, value]) => (
+                        <SelectItem key={key.toString()} value={key.toString()}>
+                          {value}
+                        </SelectItem>
+                      ),
+                    )
+                  : [...weekdayPrivateTimeSlots.entries()].map(
+                      ([key, value]) => (
+                        <SelectItem key={key.toString()} value={key.toString()}>
+                          {value}
+                        </SelectItem>
+                      ),
+                    )}
+              </SelectContent>
+            </Select>
+            {errors?.time && <FormError>{errors.time[0]}</FormError>}
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="form-privates-add--rhythm">Rhythm</Label>
+            <Select
+              name="rhythm"
+              value={rhythm}
+              onValueChange={(v) => setRhythm(v)}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Choose a rhythm" />
+              </SelectTrigger>
+              <SelectContent>
+                {rhythms.map((r) => (
+                  <SelectItem key={r} value={r}>
+                    {r}
                   </SelectItem>
                 ))}
-          </SelectContent>
-        </Select>
-        {errors?.time && <FormError>{errors.time[0]}</FormError>}
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="form-privates-add--rhythm">Rhythm</Label>
-        <Select
-          name="rhythm"
-          value={rhythm}
-          onValueChange={(v) => setRhythm(v)}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Choose a rhythm" />
-          </SelectTrigger>
-          <SelectContent>
-            {rhythms.map((r) => (
-              <SelectItem key={r} value={r}>
-                {r}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? <LoadingSpinner /> : "Schedule"}
-      </Button>
-    </form>
+              </SelectContent>
+            </Select>
+          </div>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? <LoadingSpinner /> : "Schedule"}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 }
