@@ -30,12 +30,13 @@ export function PrivatesTable({ privates }: { privates: Private[] }) {
             {privates.length > 0 &&
               privates.map((p) => {
                 const date = parseISO(p.date);
+                const time = weekPrivateTimeSlots
+                  .get(getDay(date))
+                  ?.get(p.timeSlot);
                 return (
                   <TableRow key={p.id}>
                     <TableCell>{format(date, "EEEE, MMMM d")}</TableCell>
-                    <TableCell>
-                      {weekPrivateTimeSlots.get(getDay(date))?.get(p.timeSlot)}
-                    </TableCell>
+                    <TableCell>{time}</TableCell>
                     <TableCell>{p.rhythm}</TableCell>
                     <TableCell>
                       {p.staffName ? p.staffName : "Undecided"}
