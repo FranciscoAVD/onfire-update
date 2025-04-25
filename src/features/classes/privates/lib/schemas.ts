@@ -1,4 +1,4 @@
-import { getDay, isValid, parseISO, toDate } from "date-fns";
+import { getDay, isValid, parseISO } from "date-fns";
 import { z } from "zod";
 import { rhythmSchema } from "@/features/classes/lib/schemas";
 import {
@@ -34,3 +34,29 @@ export const addPrivateSchema = z
   });
 
 export const statusSchema = z.enum(["pending", "ctl", "no-show", "taken"]);
+
+export const addStaffToPrivateSchema = z
+  .object({
+    staffId: z.number().min(1, "Invalid staff id."),
+    privateId: z.number().min(1, "Invalid private id."),
+    time: z.number(),
+    date: z
+      .string()
+      .refine(
+        (d) =>
+          isValid(parseISO(d)) || !DISABLED_DAYS.includes(getDay(parseISO(d))), {
+            message: "Invalid date."
+          },
+      ),
+  })
+  .refine(
+    (data) => {
+      const dateIdx = getDay(parseISO(data.date));
+      const time = weekPrivateTimeSlots.get(dateIdx)?.has(data.time);
+      return time;
+    },
+    {
+      path: ["time"],
+      message: "Invalid time.",
+    },
+  );
